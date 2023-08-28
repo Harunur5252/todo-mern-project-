@@ -30,7 +30,7 @@ function UpdateTodo() {
     const userData = {
       title: data?.title,
       description: data?.description,
-      completed:data?.completed,
+      completed: data?.completed,
       id: todo?._id,
     };
     try {
@@ -96,7 +96,7 @@ function UpdateTodo() {
         <Form.Check
           type="switch"
           id="custom-switch"
-          checked={todo?.completed}
+          defaultChecked={todo?.completed}
           label="complete/incomplete"
           {...register("completed")}
         />
