@@ -3,7 +3,7 @@ const Todo = require("../model/todos");
 const User = require("../model/user");
 
 const getTodos = expressAsyncHandler(async (req, res) => {
-  const todos = await Todo.find({});
+  const todos = await Todo.find({ });
   if (!todos) {
     res.status(404);
     throw new Error("todos not found");
@@ -12,7 +12,7 @@ const getTodos = expressAsyncHandler(async (req, res) => {
 });
 
 const setTodos = expressAsyncHandler(async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description,completed } = req.body;
   const userId = req.user.id;
   const user = req.user;
 
@@ -27,7 +27,7 @@ const setTodos = expressAsyncHandler(async (req, res) => {
     throw new Error("Please add all fields");
   }
 
-  const todos = await Todo.create({ title, description, user: userId });
+  const todos = await Todo.create({ title, description,completed, user: userId });
   user.todos.push(todos._id);
   await user.save();
   // if todos not found
@@ -61,6 +61,7 @@ const updateTodo = expressAsyncHandler(async (req, res) => {
   // update todo
   todo.title = req.body.title;
   todo.description = req.body.description;
+  todo.completed = req.body.completed;
   const updatedTodo = await todo.save();
 
   return res.status(201).json(updatedTodo);
@@ -89,7 +90,6 @@ const deleteTodo = expressAsyncHandler(async (req, res) => {
   }
 
   // finding todo index number form user when a todo delete then same time that todo will be deleted from user.
-
   const todoIndex = user?.todos?.findIndex((item) => {
     if (item.toString() === todo._id.toString()) {
       return item;

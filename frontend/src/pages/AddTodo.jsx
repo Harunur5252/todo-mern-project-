@@ -83,7 +83,12 @@ function Login() {
             </p>
           )}
         </Form.Group>
-
+        <Form.Check
+          type="switch"
+          id="custom-switch"
+          label="complete/incomplete"
+          {...register("completed")}
+        />
         <Button
           type="submit"
           variant="primary"

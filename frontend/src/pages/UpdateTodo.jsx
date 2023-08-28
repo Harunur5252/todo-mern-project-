@@ -30,6 +30,7 @@ function UpdateTodo() {
     const userData = {
       title: data?.title,
       description: data?.description,
+      completed:data?.completed,
       id: todo?._id,
     };
     try {
@@ -92,6 +93,13 @@ function UpdateTodo() {
             </p>
           )}
         </Form.Group>
+        <Form.Check
+          type="switch"
+          id="custom-switch"
+          checked={todo?.completed}
+          label="complete/incomplete"
+          {...register("completed")}
+        />
 
         <Button
           type="submit"
