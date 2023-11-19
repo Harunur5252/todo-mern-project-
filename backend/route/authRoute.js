@@ -18,3 +18,4 @@ router
   .put(requireAuth, updateUserProfile);
 
 module.exports = router;
+
